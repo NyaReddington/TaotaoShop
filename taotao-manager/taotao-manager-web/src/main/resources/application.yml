@@ -1,0 +1,28 @@
+server:
+    port: 8080
+spring:
+    datasource:
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:3306/taotao?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+    mvc:
+        view:
+            prefix: /WEB-INF/views/
+            suffix: .jsp
+#        static-path-pattern: /static/**
+#        resources:
+#            static-locations: classpath:/static/
+#    mvc:
+##        date-format: yyyy-MM-dd HH:mm:ss
+#        static-path-pattern: /static/**
+#        resources:
+#            static-locations: classpath:/static/
+#    thymeleaf:
+#        cache: false
+
+mybatis:
+    mapper-locations: classpath:/mappers/*.xml
+
+
+
