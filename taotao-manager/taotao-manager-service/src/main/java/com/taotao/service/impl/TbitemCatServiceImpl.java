@@ -4,14 +4,14 @@ import com.taotao.common.EUTreeNode;
 import com.taotao.mapper.TbItemCatMapper;
 import com.taotao.pojo.TbItemCat;
 import com.taotao.pojo.TbItemCatExample;
-import com.taotao.service.ITbitemCatSevice;
+import com.taotao.service.TbitemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class TbitemCatServiceImpl implements ITbitemCatSevice {
+public class TbitemCatServiceImpl implements TbitemCatService {
 
     @Autowired(required = false)
     private TbItemCatMapper tbItemCatMapper;

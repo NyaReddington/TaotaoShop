@@ -7,7 +7,6 @@ import com.taotao.pojo.TbItemParam;
 import java.util.List;
 
 public interface TbItemParamService {
-    List<TbItemParam> itemParamAllService();
 
     // 分页查询所有规格列表
     List<TbItemParam> itemParamPageService(int page, int row);
@@ -27,9 +26,4 @@ public interface TbItemParamService {
     // 删除规格模板
     TaotaoResult deleteTbItem(String id);
 
-    // 商品编辑时加载 商品规格*信息* 用于回显数据
-    TaotaoResult getItemParamItemByItemCatId(Long id);
-
-    // 商品编辑时加载 商品*描述* 用于回显数据
-    TaotaoResult getItemDescByItemCatId(Long id);
 }

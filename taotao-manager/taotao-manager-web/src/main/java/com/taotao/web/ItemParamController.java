@@ -16,7 +16,6 @@ import java.util.List;
 
 /**
  * 处理了商品规格模板的查询展示，添加，编辑，删除功能
- * 以及 编辑商品 时的 商品规格信息 和 商品描述信息的加载，用于编辑商品时数据回显
  */
 @Controller
 @RequestMapping("/item/param")
@@ -103,32 +102,6 @@ public class ItemParamController {
         }
         return taotaoResult;
 
-    }
-
-
-    /**
-     * 商品编辑时加载 商品规格*信息* 用于回显数据
-     * @param id
-     * @return
-     */
-    @RequestMapping("/item/query/{id}")
-    @ResponseBody
-    public TaotaoResult queryItemParamItemByItemCatId(@PathVariable Long id) {
-        TaotaoResult result = tbItemParamService.getItemParamItemByItemCatId(id);
-        return result;
-    }
-
-
-    /**
-     * 商品编辑时加载 商品*描述* 用于回显数据
-     * @param id
-     * @return
-     */
-    @RequestMapping("/item/desc/{id}")
-    @ResponseBody
-    public TaotaoResult queryItemDescByItemCatId(@PathVariable Long id) {
-        TaotaoResult result = tbItemParamService.getItemDescByItemCatId(id);
-        return result;
     }
 
 }

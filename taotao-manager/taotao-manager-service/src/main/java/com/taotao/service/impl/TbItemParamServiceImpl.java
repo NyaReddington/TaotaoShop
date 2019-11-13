@@ -25,18 +25,6 @@ public class TbItemParamServiceImpl implements TbItemParamService {
     @Autowired(required = false)
     private TbItemCatMapper tbItemCatMapper;    // 注入商品类别mapper
 
-    @Autowired(required = false)
-    private TbItemParamItemMapper tbItemParamItemMapper;    // 注入规格信息mapper
-
-    @Autowired(required = false)
-    private TbItemDescMapper tbItemDescMapper;  // 注入商品描述mapper
-
-    @Override
-    public List<TbItemParam> itemParamAllService() {
-        List<TbItemParam> tbItemParams = tbItemParamMapper.selectByExample(null);
-        return tbItemParams;
-    }
-
     /**
      * 分页查询所有规格列表
      * @param page
@@ -132,40 +120,6 @@ public class TbItemParamServiceImpl implements TbItemParamService {
     public TaotaoResult deleteTbItem(String id) {
         tbItemParamMapper.deleteByPrimaryKey(Long.parseLong(id));
         return TaotaoResult.build(SystemConstants.TAOTAO_RESULT_STATUS_OK, null);
-    }
-
-
-    /**
-     * 商品编辑时加载 商品规格*信息* 用于回显数据
-     * @param id
-     * @return
-     */
-    @Override
-    public TaotaoResult getItemParamItemByItemCatId(Long id) {
-        TbItemParamItemExample condition = new TbItemParamItemExample();
-        condition.createCriteria().andItemIdEqualTo(id);
-        List<TbItemParamItem> tbItemParamItems = tbItemParamItemMapper.selectByExampleWithBLOBs(condition);
-        if(tbItemParamItems.size() > 0) {
-            return TaotaoResult.ok(tbItemParamItems.get(0));
-        }
-        return TaotaoResult.build(SystemConstants.TAOTAO_RESULT_STATUS_ERROR, "未查询到数据");
-    }
-
-
-    /**
-     * 商品编辑时加载 商品*描述* 用于回显数据
-     * @param id
-     * @return
-     */
-    @Override
-    public TaotaoResult getItemDescByItemCatId(Long id) {
-        TbItemDescExample condition = new TbItemDescExample();
-        condition.createCriteria().andItemIdEqualTo(id);
-        List<TbItemDesc> tbItemDescs = tbItemDescMapper.selectByExampleWithBLOBs(condition);
-        if (tbItemDescs.size() > 0) {
-            return TaotaoResult.ok(tbItemDescs.get(0));
-        }
-        return TaotaoResult.build(SystemConstants.TAOTAO_RESULT_STATUS_ERROR, "未查询到数据");
     }
 
 }
