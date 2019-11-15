@@ -104,12 +104,13 @@
   </delete>
   <insert id="insert" parameterType="com.taotao.pojo.TbContentCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      <!-- 主键返回 -->
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tb_content_category (parent_id, name, status, 
+    insert into tb_content_category (id, parent_id, name, status,
       sort_order, is_parent, created, 
       updated)
-    values (#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
       #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, 
       #{updated,jdbcType=TIMESTAMP})
   </insert>

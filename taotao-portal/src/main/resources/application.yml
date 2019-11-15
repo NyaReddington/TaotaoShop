@@ -1,7 +1,13 @@
 server:
     port: 8082
+
 spring:
     mvc:
         view:
             prefix: /WEB-INF/views/
             suffix: .jsp
+    datasource:
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:3306/taotao?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
