@@ -3,6 +3,7 @@ package com.taotao.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.EasyUIResult;
+import com.taotao.common.HttpUtil;
 import com.taotao.common.TaotaoResult;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+
+import static com.sun.corba.se.impl.util.RepositoryId.cache;
 
 @Service
 public class TbContentServiceImpl implements TbContentService {
@@ -56,6 +59,15 @@ public class TbContentServiceImpl implements TbContentService {
         content.setUpdated(new Date());
         //把内容信息添加到数据库
         tbContentMapper.insert(content);
+
+        try {
+            Long contentCatId = content.getCategoryId();
+            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
+            System.out.println("清除了添加图片的缓存");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return TaotaoResult.ok();
     }
 
@@ -78,6 +90,15 @@ public class TbContentServiceImpl implements TbContentService {
         tbContent.setContent(content.getContent());
         tbContent.setUpdated(new Date());
         tbContentMapper.updateByPrimaryKey(tbContent);
+
+        try {
+            Long contentCatId = content.getCategoryId();
+            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
+            System.out.println("清除了编辑图片的缓存");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return TaotaoResult.ok();
     }
 
@@ -90,7 +111,17 @@ public class TbContentServiceImpl implements TbContentService {
     @Override
     public TaotaoResult deleteContent(String id) {
         tbContentMapper.deleteByPrimaryKey(Long.parseLong(id));
-        return null;
+
+        try {
+            TbContent tbContent = tbContentMapper.selectByPrimaryKey(Long.parseLong(id));
+            Long contentCatId = tbContent.getCategoryId();
+            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
+            System.out.println("清除了删除图片的缓存");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return TaotaoResult.ok();
     }
 
 }

@@ -54,6 +54,10 @@ public class TaotaoResult {
         this.data = data;
     }
 
+    public static TaotaoResult error(String errorMsg) {
+        return new TaotaoResult(200, errorMsg, null);
+    }
+
 //    public Boolean isOK() {
 //        return this.status == 200;
 //    }
