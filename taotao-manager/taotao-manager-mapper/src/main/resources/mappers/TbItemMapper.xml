@@ -308,4 +308,18 @@
       updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectAllSearchItem" resultType="com.taotao.pojo.SearchItem">
+    SELECT
+      item_cat.`name` AS category_name,
+      item.id AS id,
+      item.image AS image,
+      item.title AS title,
+      item.price AS price,
+      item.sell_point AS sell_point,
+      item_desc.item_desc AS item_desc
+    FROM
+        tb_item item
+    LEFT JOIN tb_item_desc item_desc ON item.id = item_desc.item_id
+    LEFT JOIN tb_item_cat item_cat ON item.cid = item_cat.id
+</select>
 </mapper>

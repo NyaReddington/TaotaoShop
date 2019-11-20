@@ -1,5 +1,6 @@
 package com.taotao.mapper;
 
+import com.taotao.pojo.SearchItem;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemExample;
 import java.util.List;
@@ -29,4 +30,6 @@ public interface TbItemMapper {
     int updateByPrimaryKeySelective(TbItem record);
 
     int updateByPrimaryKey(TbItem record);
+
+    List<SearchItem> selectAllSearchItem();
 }

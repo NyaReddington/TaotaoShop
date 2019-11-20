@@ -58,6 +58,10 @@ public class TaotaoResult {
         return new TaotaoResult(200, errorMsg, null);
     }
 
+    public static TaotaoResult error(String errorMsg, String stackTrace) {
+        return new TaotaoResult(200, errorMsg, stackTrace);
+    }
+
 //    public Boolean isOK() {
 //        return this.status == 200;
 //    }

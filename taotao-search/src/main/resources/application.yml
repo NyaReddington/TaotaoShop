@@ -1,0 +1,32 @@
+server:
+    port: 8083
+
+
+spring:
+    datasource:
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:3306/taotao?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+    mvc:
+      servlet:
+        path: /search/
+
+    data:
+      solr:
+        host: http://49.233.90.207:8983/solr/taotao
+#        host: http://39.97.160.60:8983/solr/taotao
+        # 这个是自定义属性，用于批量导入数据到solr中
+        batch_size: 500
+
+mybatis:
+    mapper-locations: classpath:/mappers/*.xml
+    type-aliases-package: com.taotao.pojo
+    configuration:
+      # 开启mybatis数据库字段自动映射成小驼峰
+      map-underscore-to-camel-case: true
+
+#logging:
+#  level:
+#    root: info
+#    com.taotao.mapper: debug

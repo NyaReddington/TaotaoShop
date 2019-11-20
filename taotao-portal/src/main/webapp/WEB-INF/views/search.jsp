@@ -70,7 +70,7 @@
 <script type="text/javascript" src="/js/jquery.hashchange.js"></script>
 <script type="text/javascript" src="/js/search_main.js"></script>
 <script type="text/javascript">
-//${paginator.totalPages}
+${paginator.totalPages}
 SEARCH.query = "${query}";
 SEARCH.bottom_page_html(${page},${totalPages},'');
 </script>

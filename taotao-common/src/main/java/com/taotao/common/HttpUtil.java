@@ -90,7 +90,7 @@ public class HttpUtil {
 				for(String key : params.keySet()) {
 					nvps.add(new BasicNameValuePair(key, params.get(key)));
 				}
-				postMethod.setEntity(new UrlEncodedFormEntity(nvps));
+				postMethod.setEntity(new UrlEncodedFormEntity(nvps, charset));
 			}
 			HttpResponse resp = httpClient.execute(postMethod);
 			return EntityUtils.toString(resp.getEntity(), charset);

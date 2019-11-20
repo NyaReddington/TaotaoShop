@@ -6,6 +6,8 @@ spring:
         view:
             prefix: /WEB-INF/views/
             suffix: .jsp
+        pathmatch:
+            use-suffix-pattern: true
     datasource:
         username: root
         password: root
