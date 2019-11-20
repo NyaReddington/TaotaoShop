@@ -29,7 +29,7 @@ public class TbItemParamItemServiceImpl implements TbItemParamItemService {
 
             TbItemParamItem itemParam = (TbItemParamItem) taotaoResult.getData();
             if(!(itemParam == null)) {
-                log.info("查询到商品详情");
+                log.info("查询到商品规格");
                 String html = buildHtmlFromTbItemParamItem2(itemParam);
                 return html;
             }
