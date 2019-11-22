@@ -55,11 +55,11 @@ public class TaotaoResult {
     }
 
     public static TaotaoResult error(String errorMsg) {
-        return new TaotaoResult(200, errorMsg, null);
+        return new TaotaoResult(500, errorMsg, null);
     }
 
     public static TaotaoResult error(String errorMsg, String stackTrace) {
-        return new TaotaoResult(200, errorMsg, stackTrace);
+        return new TaotaoResult(500, errorMsg, stackTrace);
     }
 
 //    public Boolean isOK() {

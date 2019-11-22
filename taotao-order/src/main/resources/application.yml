@@ -1,0 +1,29 @@
+server:
+    port: 8085
+
+spring:
+    mvc:
+        view:
+            prefix: /WEB-INF/views/
+            suffix: .jsp
+        pathmatch:
+            use-suffix-pattern: true
+    datasource:
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:3306/taotao?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+        driver-class-name: com.mysql.jdbc.Driver
+    redis:
+        host: 49.233.90.207
+        password: sakura
+        port: 7001
+        cluster:
+            nodes: 49.233.90.207:7001, 49.233.90.207:7002, 49.233.90.207:7003, 49.233.90.207:7004, 49.233.90.207:7005, 49.233.90.207:7006
+        jedis:
+            pool:
+                max-idle: 2
+                max-active: 10
+                min-idle: 1
+
+mybatis:
+    mapper-locations: classpath:/mappers/*.xml

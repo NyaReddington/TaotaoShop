@@ -1,22 +1,14 @@
-package com.taotao.portal;
+package com.taotao.sso;
 
-import com.taotao.portal.interceptor.OrderInterceptor;
+import com.taotao.sso.interceptor.OrderInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.nio.charset.Charset;
-import java.util.List;
 
 @Configuration
 public class MyMVCConfiguration implements WebMvcConfigurer {
@@ -24,13 +16,10 @@ public class MyMVCConfiguration implements WebMvcConfigurer {
     @Autowired
     private OrderInterceptor orderInterceptor;
 
-
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(orderInterceptor).addPathPatterns("/order/**");
     }
-
 
     /**
      * 设置URI匹配规则
@@ -57,20 +46,5 @@ public class MyMVCConfiguration implements WebMvcConfigurer {
         servletRegistrationBean.addUrlMappings("/");
         return servletRegistrationBean;
     }
-
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-
-        CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-        encodingFilter.setEncoding("UTF-8");
-        encodingFilter.setForceEncoding(true);
-
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(encodingFilter);
-        filterRegistrationBean.addUrlPatterns("/*");
-
-        return filterRegistrationBean;
-
-    }
-
 
 }
