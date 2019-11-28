@@ -18,6 +18,7 @@
         <module>taotao-search</module>
         <module>taotao-sso</module>
         <module>taotao-order</module>
+        <module>taotao-interface</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->
@@ -116,6 +117,26 @@
             </dependency>-->
             <!--lombok-->
             <!-- 通过注解生成getter、setter、toString、构造方法 -->
+
+
+            <!-- dubbo springboot依赖 -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+
+            <!-- zookeeper注册中心依赖 -->
+            <dependency>
+                <groupId>com.netflix.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>1.1.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>4.0.1</version>
+            </dependency>
 
 
 

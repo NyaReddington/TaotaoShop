@@ -13,3 +13,10 @@ spring:
         password: root
         url: jdbc:mysql://localhost:3306/taotao?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
         driver-class-name: com.mysql.jdbc.Driver
+
+dubbo:
+    application:
+        name: taotao-dubbo
+        qos-enable: false
+    registry:
+        address: zookeeper://49.233.90.207:2181

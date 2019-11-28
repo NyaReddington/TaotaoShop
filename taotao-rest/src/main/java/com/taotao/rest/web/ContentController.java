@@ -1,7 +1,7 @@
 package com.taotao.rest.web;
 
-import com.taotao.rest.pojo.TaotaoResult;
-import com.taotao.rest.service.ContentService;
+import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/content")
 public class ContentController {
 
-    @Autowired
+    /*@Autowired
+    private ContentService contentService;*/
+
     private ContentService contentService;
 
     /**

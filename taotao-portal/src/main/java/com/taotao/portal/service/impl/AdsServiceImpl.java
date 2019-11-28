@@ -1,13 +1,15 @@
 package com.taotao.portal.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.taotao.common.HttpUtil;
 import com.taotao.common.JsonUtils;
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.ContentService;
 import com.taotao.pojo.TbContent;
 import com.taotao.portal.service.AdsService;
 import com.taotao.rest.pojo.ADItem;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,10 +18,9 @@ import java.util.List;
 @Service
 public class AdsServiceImpl implements AdsService {
 
-    @Value("http://localhost:8081")
-    private String REST_BASE_URL;
-    @Value("/content/category/89")
-    private String INDEX_AD1_URL;
+
+    @Reference
+    private ContentService contentService;
 
     /**
      * 调用服务层的服务根据内容分类id查询内容管理系统的内容
@@ -30,9 +31,12 @@ public class AdsServiceImpl implements AdsService {
     @Override
     public String getAdItemList() {
         //调用服务层的服务查询打广告位的数据
-        String result = HttpUtil.doGet(REST_BASE_URL + INDEX_AD1_URL);
+//        String result = HttpUtil.doGet(REST_BASE_URL + INDEX_AD1_URL);
         //把json数据转换成对象
-        TaotaoResult taotaoResult = TaotaoResult.formatToList(result, TbContent.class);
+//        TaotaoResult taotaoResult = TaotaoResult.formatToList(result, TbContent.class);
+
+        TaotaoResult taotaoResult = contentService.getContentList(89);
+
         List<ADItem> itemList = new ArrayList<>();
         if (taotaoResult.getStatus() == 200 ) {
             List<TbContent> contentList = (List<TbContent>) taotaoResult.getData();
