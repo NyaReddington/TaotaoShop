@@ -2,11 +2,11 @@ package com.taotao.rest.service.impl;
 
 import com.taotao.common.ExceptionUtil;
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.TbItemService;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
-import com.taotao.rest.service.TbItemService;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class TbItemServiceImpl implements TbItemService {

@@ -1,12 +1,15 @@
 package com.taotao.portal.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.taotao.common.CookieUtils;
 import com.taotao.common.HttpUtil;
 import com.taotao.common.JsonUtils;
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.TbItemService;
 import com.taotao.portal.service.CartService;
 import com.taotao.portal.pojo.Item;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,8 @@ public class CartServiceImpl implements CartService {
     @Value("1800")
     private Integer CART_ITEMS_EXPIRE_TIME;
 
+    @Reference
+    private TbItemService tbItemDubboService;
 
     /**
      * 添加购物车商品
@@ -86,15 +91,19 @@ public class CartServiceImpl implements CartService {
 
     private Item getItemById(Long itemId) {
         //根据商品id查询商品信息
-        String resultStr = HttpUtil.doGet(REST_BASE_URL + ITEMS_ITEM_URL + itemId);
+//        String resultStr = HttpUtil.doGet(REST_BASE_URL + ITEMS_ITEM_URL + itemId);
+
         //转换成taotaoResult
-        TaotaoResult result = TaotaoResult.formatToPojo(resultStr, Item.class);
+//        TaotaoResult result = TaotaoResult.formatToPojo(resultStr, Item.class);
+        TaotaoResult result = tbItemDubboService.getItemDetails(itemId);
+        String s = JsonUtils.objectToJson(result);
+        result = TaotaoResult.formatToPojo(s, Item.class);
+
         //取商品信息
         Item item  = null;
         if (result.getStatus() == 200) {
             item = (Item) result.getData();
         }
-
         return item;
     }
 

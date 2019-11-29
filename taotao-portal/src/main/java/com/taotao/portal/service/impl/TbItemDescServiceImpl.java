@@ -6,6 +6,7 @@ import com.taotao.common.TaotaoResult;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.portal.service.TbItemDescService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,19 @@ import org.springframework.stereotype.Service;
 public class TbItemDescServiceImpl implements TbItemDescService {
 
 //    @Value("${rest.url}")
-    @Value("http://localhost:8081")
-    private String restUrl;
+    /*@Value("http://localhost:8081")
+    private String restUrl;*/
+
+    @Reference
+    private com.taotao.dubbo.service.TbItemDescService tbItemDescDubboService;
 
     @Override
     public String getTbItemDesc(Long id) {
-        String jsonResult = HttpUtil.doGet(restUrl + "/item/desc/"+id);
-        TaotaoResult taotaoResult = TaotaoResult.formatToPojo(jsonResult, TbItemDesc.class);
+//        String jsonResult = HttpUtil.doGet(restUrl + "/item/desc/"+id);
+//        TaotaoResult taotaoResult = TaotaoResult.formatToPojo(jsonResult, TbItemDesc.class);
+
+        TaotaoResult taotaoResult = tbItemDescDubboService.getItemDesc(id);
+
         if(taotaoResult.getStatus().equals(SystemConstants.TAOTAO_RESULT_STATUS_OK)) {
             TbItemDesc itemDesc = (TbItemDesc) taotaoResult.getData();
             if (!(itemDesc == null)) {

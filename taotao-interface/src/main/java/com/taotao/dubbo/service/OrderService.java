@@ -1,4 +1,4 @@
-package com.taotao.order.service;
+package com.taotao.dubbo.service;
 
 import com.taotao.common.TaotaoResult;
 import com.taotao.pojo.TbOrder;

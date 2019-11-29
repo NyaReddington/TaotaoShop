@@ -1,20 +1,18 @@
 package com.taotao.sso.service.impl;
 
 import com.taotao.common.*;
+import com.taotao.dubbo.service.UserService;
 import com.taotao.mapper.TbUserMapper;
 import com.taotao.pojo.TbUser;
 import com.taotao.pojo.TbUserExample;
-import com.taotao.sso.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -169,7 +167,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public TaotaoResult login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
+    public TaotaoResult login(String username, String password) {
         if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             return TaotaoResult.error("用户名或密码不能为空!");
         }
@@ -199,9 +197,14 @@ public class UserServiceImpl implements UserService {
             redisTemplate.expire(redisKey, 30, TimeUnit.MINUTES);
 
             // 将Token写入Cookie
-            CookieUtils.setCookie(request, response, "TT_TOKEN", token, (int)TimeUnit.MINUTES.toSeconds(30));
+            /*HashMap<Object, Object> hashMap = (HashMap<Object, Object>) JSONObject.parse(httpServletJSON);
+            HttpServletRequest request = (HttpServletRequest) hashMap.get("req");
+            HttpServletResponse response = (HttpServletResponse) hashMap.get("resp");
 
-            return TaotaoResult.ok(token);
+            CookieUtils.setCookie(request, response, "TT_TOKEN", token, (int)TimeUnit.MINUTES.toSeconds(30));*/
+
+//            return TaotaoResult.ok(token);
+            return  TaotaoResult.build(SystemConstants.TAOTAO_RESULT_STATUS_OK, token);
         } catch (Exception e) {
             log.error("登录失败", e);
             return TaotaoResult.error("登录失败", ExceptionUtil.getStackTrace(e));
@@ -245,10 +248,11 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public TaotaoResult userLogout(String token, HttpServletRequest req, HttpServletResponse resp) {
+//    public TaotaoResult userLogout(String token, HttpServletRequest req, HttpServletResponse resp) {
+    public TaotaoResult userLogout(String token) {
 //        redisTemplate.delete(getTokenRedisKey(token));
         redisTemplate.expire(getTokenRedisKey(token), 0, TimeUnit.SECONDS);
-        CookieUtils.setCookie(req, resp, "TT_TOKEN", "", (int)TimeUnit.MINUTES.toSeconds(0));
+//        CookieUtils.setCookie(req, resp, "TT_TOKEN", "", (int)TimeUnit.MINUTES.toSeconds(0));
         return TaotaoResult.ok();
     }
 

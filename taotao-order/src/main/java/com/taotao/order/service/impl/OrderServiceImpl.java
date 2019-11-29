@@ -1,19 +1,19 @@
 package com.taotao.order.service.impl;
 
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.OrderService;
 import com.taotao.mapper.TbOrderItemMapper;
 import com.taotao.mapper.TbOrderMapper;
 import com.taotao.mapper.TbOrderShippingMapper;
-import com.taotao.order.service.OrderService;
 import com.taotao.pojo.TbOrder;
 import com.taotao.pojo.TbOrderItem;
 import com.taotao.pojo.TbOrderShipping;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisCluster;
 
 import java.util.Date;

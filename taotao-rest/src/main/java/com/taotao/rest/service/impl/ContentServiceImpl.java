@@ -7,7 +7,6 @@ import com.taotao.dubbo.service.ContentService;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbContentExample;
-//import com.taotao.rest.service.ContentService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;

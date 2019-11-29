@@ -7,6 +7,7 @@ import com.taotao.common.TaotaoResult;
 import com.taotao.pojo.TbItemParamItem;
 import com.taotao.portal.service.TbItemParamItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,19 @@ import java.util.Map;
 public class TbItemParamItemServiceImpl implements TbItemParamItemService {
 
 //    @Value("${rest.url}")
-    @Value("http://localhost:8081")
-    private String restUrl;
+//    @Value("http://localhost:8081")
+//    private String restUrl;
+
+    @Reference
+    private com.taotao.dubbo.service.TbItemParamItemService tbItemParamItemDubboService;
 
     @Override
     public String getItemParam(Long id) {
-        String jsonResult = HttpUtil.doGet(restUrl + "/item/param/" + id);
-        TaotaoResult taotaoResult = TaotaoResult.formatToPojo(jsonResult, TbItemParamItem.class);
+//        String jsonResult = HttpUtil.doGet(restUrl + "/item/param/" + id);
+//        TaotaoResult taotaoResult = TaotaoResult.formatToPojo(jsonResult, TbItemParamItem.class);
+
+        TaotaoResult taotaoResult = tbItemParamItemDubboService.getItemParam(id);
+
         if (taotaoResult.getStatus().equals(SystemConstants.TAOTAO_RESULT_STATUS_OK)) {
 
             TbItemParamItem itemParam = (TbItemParamItem) taotaoResult.getData();

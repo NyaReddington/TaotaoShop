@@ -2,13 +2,13 @@ package com.taotao.rest.service.impl;
 
 import com.taotao.common.ExceptionUtil;
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.TbItemParamItemService;
 import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.pojo.TbItemParamItem;
 import com.taotao.pojo.TbItemParamItemExample;
-import com.taotao.rest.service.TbItemParamItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
 package com.taotao.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Order extends TbOrder {
+public class Order extends TbOrder implements Serializable {
 
 	private List<TbOrderItem> orderItems;
 	private TbOrderShipping orderShipping;

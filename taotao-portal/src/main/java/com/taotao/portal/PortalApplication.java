@@ -1,5 +1,6 @@
 package com.taotao.portal;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,6 +16,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 @SpringBootApplication
+@MapperScan("com.taotao.mapper")
 public class PortalApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

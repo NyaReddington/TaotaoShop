@@ -1,8 +1,9 @@
 package com.taotao.search.service.impl;
 
+import com.taotao.dubbo.service.SearchService;
 import com.taotao.pojo.SearchItem;
 import com.taotao.pojo.SearchResult;
-import com.taotao.search.service.SearchService;
+import org.apache.dubbo.config.annotation.Service;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -10,7 +11,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.taotao.rest.service;
+package com.taotao.dubbo.service;
 
 import com.taotao.common.TaotaoResult;
 

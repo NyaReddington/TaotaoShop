@@ -1,25 +1,22 @@
 package com.taotao.sso;
 
-import com.taotao.sso.interceptor.OrderInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class MyMVCConfiguration implements WebMvcConfigurer {
 
-    @Autowired
+    /*@Autowired
     private OrderInterceptor orderInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(orderInterceptor).addPathPatterns("/order/**");
-    }
+    }*/
 
     /**
      * 设置URI匹配规则

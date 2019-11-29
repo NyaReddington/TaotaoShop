@@ -7,6 +7,7 @@ import com.taotao.pojo.TbItem;
 import com.taotao.portal.pojo.TbItemExt;
 import com.taotao.portal.service.TbItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +16,36 @@ import org.springframework.stereotype.Service;
 public class TbItemServiceImpl implements TbItemService {
 
 //    @Value("${rest.url}")
-    @Value("http://localhost:8081")
-    private String restUrl;
+//    @Value("http://localhost:8081")
+//    private String restUrl;
+
+    @Reference
+    private com.taotao.dubbo.service.TbItemService tbItemDubboService;
 
 
     @Override
     public TbItemExt getTbItemInfo(Long id) {
-        String resultJson = HttpUtil.doGet(restUrl + "/item/get_item_detail/" + id);
-        if (!(resultJson == null)) {
+//        String resultJson = HttpUtil.doGet(restUrl + "/item/get_item_detail/" + id);
+
+        TaotaoResult taotaoResult = tbItemDubboService.getItemDetails(id);
+//        if (!taotaoResult.equals(null)) {
+            if(taotaoResult.getStatus().equals(SystemConstants.TAOTAO_RESULT_STATUS_OK)) {
+                TbItem tbItem = (TbItem) taotaoResult.getData();
+                return parseTbItem2Ext(tbItem, new TbItemExt());
+            }
+            log.error("获取商品详情失败: " + taotaoResult.getMsg()+"\n异常栈信息：" + taotaoResult.getData());
+//        }
+
+
+        /*if (!(resultJson == null)) {
             TaotaoResult taotaoResult = TaotaoResult.formatToPojo(resultJson, TbItem.class);
             if(taotaoResult.getStatus().equals(SystemConstants.TAOTAO_RESULT_STATUS_OK)) {
                 TbItem tbItem = (TbItem) taotaoResult.getData();
                 return parseTbItem2Ext(tbItem, new TbItemExt());
             }
             log.error("获取商品详情失败: " + taotaoResult.getMsg()+"\n异常栈信息：" + taotaoResult.getData());
-        }
-        log.error("商品详情为空");
+        }*/
+//        log.error("商品详情为空");
         return null;
     }
 

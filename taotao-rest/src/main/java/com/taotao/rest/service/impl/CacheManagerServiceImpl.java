@@ -1,11 +1,11 @@
 package com.taotao.rest.service.impl;
 
 import com.taotao.common.TaotaoResult;
-import com.taotao.rest.service.CacheManagerService;
+import com.taotao.dubbo.service.CacheManagerService;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CacheManagerServiceImpl implements CacheManagerService {

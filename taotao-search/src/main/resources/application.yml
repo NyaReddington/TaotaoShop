@@ -30,3 +30,12 @@ mybatis:
 #  level:
 #    root: info
 #    com.taotao.mapper: debug
+
+dubbo:
+  application:
+    name: taotao-dubbo
+    qos-enable: false
+  registry:
+    address: zookeeper://49.233.90.207:2181
+  protocol:
+    port: 20881

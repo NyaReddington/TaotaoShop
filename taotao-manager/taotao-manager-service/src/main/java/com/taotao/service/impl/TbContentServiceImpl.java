@@ -5,10 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.taotao.common.EasyUIResult;
 import com.taotao.common.HttpUtil;
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.CacheManagerService;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbContentExample;
 import com.taotao.service.TbContentService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class TbContentServiceImpl implements TbContentService {
 
     @Autowired(required = false)
     private TbContentMapper tbContentMapper;
+
+    @Reference
+    private CacheManagerService cacheManagerDubboService;
 
     /**
      * 根据分类id获取相应的内容数据并分页显示
@@ -62,7 +67,8 @@ public class TbContentServiceImpl implements TbContentService {
 
         try {
             Long contentCatId = content.getCategoryId();
-            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
+            cacheManagerDubboService.clearContentCache(contentCatId);
+//            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
             System.out.println("清除了添加图片的缓存");
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +99,8 @@ public class TbContentServiceImpl implements TbContentService {
 
         try {
             Long contentCatId = content.getCategoryId();
-            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
+            cacheManagerDubboService.clearContentCache(contentCatId);
+//            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
             System.out.println("清除了编辑图片的缓存");
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,7 +122,8 @@ public class TbContentServiceImpl implements TbContentService {
         try {
             TbContent tbContent = tbContentMapper.selectByPrimaryKey(Long.parseLong(id));
             Long contentCatId = tbContent.getCategoryId();
-            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
+            cacheManagerDubboService.clearContentCache(contentCatId);
+//            HttpUtil.doGet("http://localhost:8081/cache/clear/content/cat/" + contentCatId);
             System.out.println("清除了删除图片的缓存");
         } catch (Exception e) {
             e.printStackTrace();

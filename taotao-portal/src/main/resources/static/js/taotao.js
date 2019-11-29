@@ -5,7 +5,7 @@ var TT = TAOTAO = {
 			return ;
 		}
 		$.ajax({
-			url : "http://localhost:8084/user/token/" + _ticket,
+			url : "http://localhost:8082/user/token/" + _ticket,
 			dataType : "jsonp",
 			type : "GET",
 			success : function(data){
@@ -24,7 +24,7 @@ var TT = TAOTAO = {
 			return ;
 		}
 		$.ajax({
-			url : "http://localhost:8084/user/logout/" + _ticket,
+			url : "http://localhost:8082/user/logout/" + _ticket,
 			dataType : "json",
 			type : "Get",
 			success : function (data) {

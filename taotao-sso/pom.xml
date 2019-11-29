@@ -56,6 +56,36 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- zookeeper注册中心依赖 -->
+        <dependency>
+            <groupId>com.netflix.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.taotao.parent</groupId>
+            <artifactId>taotao-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

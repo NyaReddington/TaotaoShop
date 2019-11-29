@@ -1,22 +1,25 @@
-package com.taotao.sso.web;
+package com.taotao.portal.web;
 
+import com.taotao.common.CookieUtils;
 import com.taotao.common.ExceptionUtil;
 import com.taotao.common.JsonUtils;
 import com.taotao.common.TaotaoResult;
+import com.taotao.dubbo.service.UserService;
 import com.taotao.pojo.TbUser;
-import com.taotao.sso.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-   @Autowired
+
+   @Reference
    private UserService userService;
 
    /**
@@ -52,8 +55,21 @@ public class UserController {
     */
    @RequestMapping(value = "/login", method = RequestMethod.POST)
    public TaotaoResult registerUser(String username, String password, HttpServletRequest req, HttpServletResponse resp) {
-      TaotaoResult taotaoResult = userService.login(username, password, req, resp);
-      return taotaoResult;
+      /*SSOUtil ssoUtil = new SSOUtil();
+      ssoUtil.setRequest(req);
+      ssoUtil.setResponse(resp);*/
+
+      /*HashMap<Object, Object> hashMap = new HashMap<>();
+      hashMap.put("req", req);
+      hashMap.put("resp", resp);
+      String httpServletJSON = JSON.toJSONString(hashMap);*/
+      TaotaoResult taotaoResult = userService.login(username, password);
+      if (taotaoResult.getStatus() == 200) {
+         String token = taotaoResult.getMsg();
+         CookieUtils.setCookie(req, resp, "TT_TOKEN", token, (int) TimeUnit.MINUTES.toSeconds(30));
+         return TaotaoResult.ok(token);
+      }
+      return null;
    }
 
 
@@ -85,7 +101,8 @@ public class UserController {
    public Object logOutByToken(@PathVariable String token, HttpServletRequest req, HttpServletResponse resp) {
       TaotaoResult result = null;
       try {
-         result = userService.userLogout(token, req, resp);
+//         result = userService.userLogout(token, req, resp);
+         result = userService.userLogout(token);
       } catch (Exception e) {
          e.printStackTrace();
          return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));

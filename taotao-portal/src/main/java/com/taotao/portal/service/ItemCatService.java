@@ -1,6 +1,7 @@
-package com.taotao.rest.service;
+package com.taotao.portal.service;
 
-import com.taotao.rest.pojo.TaotaoResult;
+
+import com.taotao.common.TaotaoResult;
 
 public interface ItemCatService {
 

@@ -5,6 +5,7 @@ import com.taotao.common.JsonUtils;
 import com.taotao.common.TaotaoResult;
 import com.taotao.pojo.Order;
 import com.taotao.portal.service.OrderService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +19,21 @@ public class OrderServiceImpl implements OrderService {
     @Value("/order/create")
     private String ORDER_CREATE_URL;
 
+    @Reference
+    private com.taotao.dubbo.service.OrderService orderDubboService;
+
 
     @Override
     public TaotaoResult createService(Order order) {
-        //把pojo转换成json数据
+        /*//把pojo转换成json数据
         String json = JsonUtils.objectToJson(order);
         //调用订单系统服务提交订单
         String resultStr = HttpUtil.doPostJson(ORDER_BASE_URL + ORDER_CREATE_URL, json);
-        //转换成java对象
-        TaotaoResult taotaoResult = TaotaoResult.format(resultStr);
 
+        //转换成java对象
+        TaotaoResult taotaoResult = TaotaoResult.format(resultStr);*/
+
+        TaotaoResult taotaoResult = orderDubboService.createOrder(order, order.getOrderItems(), order.getOrderShipping());
         return taotaoResult;
     }
 
