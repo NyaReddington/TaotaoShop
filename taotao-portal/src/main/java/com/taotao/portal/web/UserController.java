@@ -107,7 +107,6 @@ public class UserController {
          e.printStackTrace();
          return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
       }
-//      return "redirect:http://localhost:8082";
       return result;
    }
 
